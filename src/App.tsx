@@ -7,6 +7,8 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
+
+export type FilterValuesType = 'all' | 'active' | 'completed'
 // C-"R"-UD
 // CLI -> GUI -> UI
 function App() {
@@ -21,30 +23,39 @@ function App() {
     const [tasks, setTasks] = useState<Array<TaskType>>(tasksForState)
     console.log([tasks, setTasks]);
     
+    const [filter, setFilter] = useState('all')
 
-    // const setTasks = result[1]
-    // const tasks = result[0]
+    // const setTasks = result[1] //функция, которая отслеживает изменеие state
+    // const tasks = result[0] //текущее состояние
     
-    // const addTask = (newTaskValue: object) =>{
-    //     tasks.push(newTaskValue)
-    // }
-    
-    
-
-    const removeTask = (taskID: number) => {
+   const removeTask = (taskID: number) => {
         setTasks(tasks.filter(task => task.id !== taskID))
         console.log(tasks);
         
     }
+    const changeFilter = (filter: FilterValuesType) =>{
+        setFilter(filter);
+    }
 
 
+
+
+
+    let taskForRender: Array<TaskType> = tasks;
+    if(filter === 'active'){
+        taskForRender = tasks.filter(t => t.isDone === false)
+    }
+    if (filter === 'completed'){
+        taskForRender = tasks.filter(t => t.isDone === true)
+    }
     //UI:
     return (
         <div className="App">
             <TodoList
                 title={"What to learn"}
-                tasks={tasks}
+                tasks={taskForRender}
                 removeTask={removeTask}
+                changeFilter={changeFilter}
             />  {/* TodoList({title: "What to learn"}) */}
             {/*<TodoList title={"What to buy"}/>*/}
             {/*<TodoList title={"What to read"}/>*/}
