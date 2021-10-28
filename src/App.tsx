@@ -11,6 +11,8 @@ export type TaskType = {
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
+export type CheckType = true | false
+
 
 // C-"R"-UD
 // CLI -> GUI -> UI
@@ -26,8 +28,10 @@ function App() {
 
     const [tasks, setTasks] = useState<Array<TaskType>>(tasksForState)
     console.log([tasks, setTasks]);
+
+    const [check, setCheck] = useState<CheckType>(true)
     
-    const [filter, setFilter] = useState('all')
+
 
     // const setTasks = result[1] //функция, которая отслеживает изменеие state
     // const tasks = result[0] //текущее состояние
@@ -37,21 +41,13 @@ function App() {
         console.log(tasks);
         
     }
-    const changeFilter = (filter: FilterValuesType) =>{
-        setFilter(filter);
+
+    let checkTaskForRender: Array<TaskType> = tasks;
+
+    const changeCheked = (check:CheckType) =>{
+        setCheck(check)
     }
 
-    
-
-
-
-    let taskForRender: Array<TaskType> = tasks;
-    if(filter === 'active'){
-        taskForRender = tasks.filter(t => t.isDone === false)
-    }
-    if (filter === 'completed'){
-        taskForRender = tasks.filter(t => t.isDone === true)
-    }
 
     const addTask = (title:string) =>{
         let newTask = {
@@ -69,10 +65,10 @@ function App() {
         <div className="App">
             <TodoList
                 title={"What to learn"}
-                tasks={taskForRender}
+                tasks={tasks}
                 removeTask={removeTask}
-                changeFilter={changeFilter}
                 addTask={addTask}
+                changeCheked={changeCheked}
             />  
         </div>
     );

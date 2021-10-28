@@ -1,63 +1,84 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
-import {FilterValuesType, TaskType} from "./App";
+import { CheckType, FilterValuesType, TaskType } from "./App";
+import { Button } from './components/Button';
 
-export type TodoListPropsType = {
+type TodoListPropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask:(taskID: string) => void
-    changeFilter:(filter: FilterValuesType) => void
-    addTask:(title:string) => void
+    removeTask: (taskID: string) => void
+    addTask: (title: string) => void
+    changeCheked:(check:CheckType)=> void
 }
 
-const TodoList:React.FC<TodoListPropsType> = (props) => {
+const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsType) => {
 
-    const tasksJSXelements = props.tasks.map( task => {
-        const onRemoveHandler = ()=>props.removeTask(task.id)
+    const [filter, setFilter] = useState('all')
+    
+
+    const changeFilter = (filter: FilterValuesType) =>{
+        setFilter(filter);
+    }
+
+    let taskForRender: Array<TaskType> = tasks;
+
+    if(filter === 'active'){
+        taskForRender = tasks.filter(t => t.isDone === false)
+    }
+    if (filter === 'completed'){
+        taskForRender = tasks.filter(t => t.isDone === true)
+    }
+
+
+    const tasksJSXelements = taskForRender.map(task => {
+        const onRemoveHandler = () => removeTask(task.id)
 
         return (
             <li key={task.id}>
-                <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
-                <button onClick={onRemoveHandler}>x</button>
+                <input type="checkbox" checked={task.isDone} /> <span>{task.title}</span>
+                <Button onClick={onRemoveHandler} name='x' />
             </li>
         )
     }
     )
     const [newTaskTitle, setNewTaskTitle] = useState('')
-   
-    const onNewTitleChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
+
+    const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTaskTitle(e.currentTarget.value)
-        }
-    const onKeyPressHandler = (e:KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter'){
-            props.addTask(newTaskTitle)
+    }
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTask(newTaskTitle)
             setNewTaskTitle('')
         }
-        
+
     }
-    const addTask =() => {
-        props.addTask(newTaskTitle)
-        setNewTaskTitle('')
+    const addTaskHandler = () => {
+        if (newTaskTitle) {
+            addTask(newTaskTitle)
+            setNewTaskTitle('')
         }
-    const onAllClickHandler = ()=>props.changeFilter('all');
-    const onActiveClickHandler = ()=>props.changeFilter('active')
-    const onCompletedClickHandler = ()=>props.changeFilter('completed')
-    return(
+    }
+    const onChangeClickHandler = (value: FilterValuesType) => {
+        changeFilter(value)
+    };
+
+    return (
         <div className="todolist">
-            <h3>{props.title}</h3>
+            <h3>{title}</h3>
             <div>
                 <input onChange={onNewTitleChangeHandler} value={newTaskTitle}
                     onKeyPress={onKeyPressHandler}
-                    
-                    />
-                <button onClick={addTask}>+</button>
+
+                />
+                <Button onClick={addTaskHandler} name='+' />
             </div>
             <ul>
                 {tasksJSXelements}
             </ul>
             <div>
-                <button onClick={onAllClickHandler}>All</button>
-                <button onClick={onActiveClickHandler}>Active</button>
-                <button onClick={onCompletedClickHandler}>Completed</button>
+                <Button onClick={() => onChangeClickHandler('all')} name='All' />
+                <Button onClick={() => onChangeClickHandler('active')} name='Active' />
+                <Button onClick={() => onChangeClickHandler('completed')} name='Completed' />
             </div>
         </div>
     )
