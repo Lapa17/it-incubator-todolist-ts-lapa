@@ -28,25 +28,37 @@ function App() {
 
     const [tasks, setTasks] = useState<Array<TaskType>>(tasksForState)
     console.log([tasks, setTasks]);
-
-    const [check, setCheck] = useState<CheckType>(true)
-    
-
-
     // const setTasks = result[1] //функция, которая отслеживает изменеие state
     // const tasks = result[0] //текущее состояние
     
    const removeTask = (taskID: string) => {
+       
         setTasks(tasks.filter(task => task.id !== taskID))
         console.log(tasks);
         
     }
-
-    let checkTaskForRender: Array<TaskType> = tasks;
-
-    const changeCheked = (check:CheckType) =>{
-        setCheck(check)
+    let checkTaskisDone = false
+    const changeCheck = (taskID: string) => {
+        debugger
+        setTasks(tasks.map(task => {
+            checkTaskisDone = task.isDone
+            if(task.id === taskID){
+                if (task.isDone === true){
+                    return  checkTaskisDone = false;
+                }
+                else {
+                    return checkTaskisDone = true
+                }
+            }
+            else{
+                return task
+            }))
+        console.log(tasks);
+        
     }
+
+
+    
 
 
     const addTask = (title:string) =>{
@@ -68,10 +80,12 @@ function App() {
                 tasks={tasks}
                 removeTask={removeTask}
                 addTask={addTask}
-                changeCheked={changeCheked}
+                changeCheck={changeCheck}
+               
             />  
         </div>
     );
 }
+
 
 export default App;
