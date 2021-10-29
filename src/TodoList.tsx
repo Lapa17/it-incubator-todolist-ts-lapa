@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
+import React, { ChangeEvent, useState, KeyboardEvent, ChangeEventHandler } from 'react';
 import { CheckType, FilterValuesType, TaskType } from "./App";
 import { Button } from './components/Button';
 
@@ -7,34 +7,35 @@ type TodoListPropsType = {
     tasks: Array<TaskType>
     removeTask: (taskID: string) => void
     addTask: (title: string) => void
-    changeCheked:(check:CheckType)=> void
+    changeCheck:(taskID: string) => void
 }
 
-const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsType) => {
+const TodoList = ({ tasks, removeTask, addTask, title,changeCheck, ...props }: TodoListPropsType) => {
 
     const [filter, setFilter] = useState('all')
-    
-
-    const changeFilter = (filter: FilterValuesType) =>{
-        setFilter(filter);
-    }
+    const [check, setCheck] = useState(false)
 
     let taskForRender: Array<TaskType> = tasks;
 
-    if(filter === 'active'){
+    const changeFilter = (filter: FilterValuesType) => {
+        setFilter(filter);
+    }
+
+    if (filter === 'active') {
         taskForRender = tasks.filter(t => t.isDone === false)
     }
-    if (filter === 'completed'){
+    if (filter === 'completed') {
         taskForRender = tasks.filter(t => t.isDone === true)
     }
 
 
     const tasksJSXelements = taskForRender.map(task => {
         const onRemoveHandler = () => removeTask(task.id)
+        const onChangeChekedHandler = ()=> changeCheck(task.id)
 
         return (
             <li key={task.id}>
-                <input type="checkbox" checked={task.isDone} /> <span>{task.title}</span>
+                <input type="checkbox" checked={task.isDone} onClick={onChangeChekedHandler} /> <span>{task.title}</span>
                 <Button onClick={onRemoveHandler} name='x' />
             </li>
         )
