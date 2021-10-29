@@ -3,7 +3,7 @@ import React, { ChangeEvent, KeyboardEvent } from 'react';
 type PropsType ={
     newTaskTitle: string
     callBack: (title:string)=> void
-    setNewTaskTitle:React.Dispatch<React.SetStateAction<string>>
+    setNewTaskTitle:(title:string)=> void
     addTaskHandler: ()=> void
 }
 
