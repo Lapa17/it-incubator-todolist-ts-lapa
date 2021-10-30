@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { CheckType, FilterValuesType, TaskType } from "./App";
 import { Button } from './components/Button';
-import { FullInput } from './components/FullInput';
 import { Input } from './components/Input';
+import { TaskMap } from './components/TaskMap';
 
 type TodoListPropsType = {
     title: string
@@ -35,10 +35,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsT
         const onRemoveHandler = () => removeTask(task.id)
 
         return (
-            <li key={task.id}>
-                <input type="checkbox" checked={task.isDone} /> <span>{task.title}</span>
-                <Button onClick={onRemoveHandler} name='x' />
-            </li>
+            <TaskMap taskId={task.id} taskTitle={task.title} taskIsDone={task.isDone} onRemoveHandler={onRemoveHandler}/>
         )
     }
     )
