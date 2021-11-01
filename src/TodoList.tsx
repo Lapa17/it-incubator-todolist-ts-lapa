@@ -72,9 +72,9 @@ const TodoList = ({ tasks, removeTask, addTask, title,changeCheked, ...props}: T
                 {tasksJSXelements}
             </ul>
             <div>
-                <Button filter={filter} onClick={() => onChangeClickHandler('all')} name='All' />
-                <Button filter={filter} onClick={() => onChangeClickHandler('active')} name='Active' />
-                <Button filter={filter} onClick={() => onChangeClickHandler('completed')} name='Completed' />
+                <Button filter={filter === 'all'? 'all': ''} onClick={() => onChangeClickHandler('all')} name='All' />
+                <Button filter={filter === 'active'? 'active': ''} onClick={() => onChangeClickHandler('active')} name='Active' />
+                <Button filter={filter === 'completed'? 'completed': ''} onClick={() => onChangeClickHandler('completed')} name='Completed' />
             </div>
         </div>
     )
