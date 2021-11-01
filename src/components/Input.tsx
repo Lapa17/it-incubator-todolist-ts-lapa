@@ -1,19 +1,22 @@
-import React, { ChangeEvent, KeyboardEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent, SetStateAction } from 'react';
 
 type PropsType ={
     newTaskTitle: string
     callBack: (title:string)=> void
     setNewTaskTitle:(title:string)=> void
     addTaskHandler: ()=> void
+    setError:React.Dispatch<SetStateAction<string>>
+    error:string
 }
 
-export const Input = (props:PropsType)=>{
+export const Input = ({error,setError, ...props}:PropsType)=>{
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setNewTaskTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError('')
         if (e.key === 'Enter') {
             props.callBack(props.newTaskTitle)
             props.addTaskHandler()
@@ -24,6 +27,6 @@ export const Input = (props:PropsType)=>{
     return (
         <input onChange={onNewTitleChangeHandler} 
         value={props.newTaskTitle}
-        onKeyPress={onKeyPressHandler}/>
+        onKeyPress={onKeyPressHandler} className={ error ? 'error' : ''}/>
     )
 }

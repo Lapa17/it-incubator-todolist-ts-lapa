@@ -9,12 +9,13 @@ type TodoListPropsType = {
     tasks: Array<TaskType>
     removeTask: (taskID: string) => void
     addTask: (title: string) => void
-    changeCheked:(check:CheckType)=> void
+    changeCheked:(check:CheckType, taskId:string)=> void
 }
 
-const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsType) => {
+const TodoList = ({ tasks, removeTask, addTask, title,changeCheked, ...props}: TodoListPropsType) => {
 
     const [filter, setFilter] = useState('all')
+    let [error,setError] = useState('')
     
 
     const changeFilter = (filter: FilterValuesType) =>{
@@ -33,9 +34,12 @@ const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsT
 
     const tasksJSXelements = taskForRender.map(task => {
         const onRemoveHandler = () => removeTask(task.id)
+        const onChangeCheckHandler =(e:ChangeEvent<HTMLInputElement>) => {
+            changeCheked(e.currentTarget.checked, task.id)
+        }
 
         return (
-            <TaskMap taskId={task.id} taskTitle={task.title} taskIsDone={task.isDone} onRemoveHandler={onRemoveHandler}/>
+            <TaskMap taskId={task.id} taskTitle={task.title} taskIsDone={task.isDone} onRemoveHandler={onRemoveHandler} onChangeCheckHandler={onChangeCheckHandler}/>
         )
     }
     )
@@ -46,9 +50,12 @@ const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsT
     const [newTaskTitle, setNewTaskTitle] = useState('')
 
     const addTaskHandler = () => {
-        if (newTaskTitle) {
+        if (newTaskTitle.trim()) {
             addTask(newTaskTitle)
             setNewTaskTitle('')
+        }
+        else {
+            setError('Title is empty')
         }
     }
 
@@ -57,16 +64,17 @@ const TodoList = ({ tasks, removeTask, addTask, title, ...props}: TodoListPropsT
             <h3>{title}</h3>
             <div>
                 {/* <FullInput callBack={addTask}/> */}
-                <Input newTaskTitle={newTaskTitle} callBack={addTask} setNewTaskTitle={setNewTaskTitle} addTaskHandler={addTaskHandler}/>
-                <Button onClick={addTaskHandler} name={'+'}/>
+                <Input newTaskTitle={newTaskTitle} callBack={addTask} setNewTaskTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError}/>
+                <Button onClick={addTaskHandler} name={'+'} filter={null}/>
+                <div className={error ? 'error-message' : ''}>{error}</div>
             </div>
             <ul>
                 {tasksJSXelements}
             </ul>
             <div>
-                <Button onClick={() => onChangeClickHandler('all')} name='All' />
-                <Button onClick={() => onChangeClickHandler('active')} name='Active' />
-                <Button onClick={() => onChangeClickHandler('completed')} name='Completed' />
+                <Button filter={filter} onClick={() => onChangeClickHandler('all')} name='All' />
+                <Button filter={filter} onClick={() => onChangeClickHandler('active')} name='Active' />
+                <Button filter={filter} onClick={() => onChangeClickHandler('completed')} name='Completed' />
             </div>
         </div>
     )
