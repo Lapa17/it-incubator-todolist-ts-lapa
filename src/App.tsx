@@ -97,20 +97,43 @@ function App() {
         setTodolists(todoLists.filter(t => t.id !== todoListID))
         delete tasks[todoListID]
     }
-
+    const changeFilter = (value: FilterValuesType, todoListID: string) => {
+        let todolist = todoLists.find(tl => tl.id === todoListID)
+        if(todolist){
+            todolist.filter = value;
+            setTodolists([...todoLists])
+        }
+        
+        
+    };
     //UI:
     const todoListComponents = todoLists.map(tl => {
+
+        let taskForRender = tasks[tl.id]
+
+        if( tl.filter === 'active'){
+            taskForRender= tasks[tl.id].filter(t => t.isDone === false)
+      
+        }
+        if (tl.filter === 'completed'){
+            taskForRender = tasks[tl.id].filter(t => t.isDone === true)
+      
+        }
+        
+        
         return <TodoList 
         key = {tl.id}
         id = {tl.id}
-        title={"What to learn"}
-        tasks={tasks}
+        title={tl.title}
+        tasks={taskForRender}
+        filter={tl.filter}
         removeTask={removeTask}
         addTask={addTask}
         changeCheked={changeCheked}
         todoLists={todoLists}
         setTodolists={setTodolists}
-        setTasks={setTasks}
+        changeFilter={changeFilter}
+        removeTodoList={removeTodoList}
 
     />
     })
