@@ -1,8 +1,9 @@
 import React, { ChangeEvent, KeyboardEvent, SetStateAction } from 'react';
 
 type PropsType ={
+    id: string
     newTaskTitle: string
-    callBack: (title:string)=> void
+    callBack: (title:string,  todoListID: string)=> void
     setNewTaskTitle:(title:string)=> void
     addTaskHandler: ()=> void
     setError:React.Dispatch<SetStateAction<string>>
@@ -18,7 +19,7 @@ export const Input = ({error,setError, ...props}:PropsType)=>{
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
         if (e.key === 'Enter') {
-            props.callBack(props.newTaskTitle)
+            props.callBack(props.newTaskTitle, props.id)
             props.addTaskHandler()
         }
 

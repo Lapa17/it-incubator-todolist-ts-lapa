@@ -4,17 +4,18 @@ import { FilterValuesType } from '../App'
 type ButtonPropsType = {
     onClick: ()=> void
     name: string
-    filter: string | null
+
 }
 
 
-export const Button =({onClick,name,filter, ...props}:ButtonPropsType) =>{
+export const Button =({onClick,name, ...props}:ButtonPropsType) =>{
     
     const onBtnClick = () =>{
         onClick()
     } 
     
     return (
-        <button onClick={onBtnClick} className={filter === 'all' || filter === 'active' || filter === 'completed' ? 'active-filter' : ''}>{name}</button>
+        <button onClick={onBtnClick} >{name}</button>
     )
 }
+//className={filter === 'all' || filter === 'active' || filter === 'completed' ? 'active-filter' : ''}

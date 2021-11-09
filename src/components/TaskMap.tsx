@@ -15,7 +15,7 @@ export const TaskMap = ({taskId,taskTitle,taskIsDone,onRemoveHandler,onChangeChe
         return (
             <li key={taskId} className={taskIsDone === true ? 'completed': ''}>
                 <input type="checkbox" checked={taskIsDone} onChange={onChangeCheckHandler}/> <span>{taskTitle}</span>
-                <Button onClick={onRemoveHandler} name='x' filter={null}/>
+                <Button onClick={onRemoveHandler} name='x'/>
             </li>
         )
     }
