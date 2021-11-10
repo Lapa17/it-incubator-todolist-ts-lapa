@@ -27,18 +27,14 @@ const TodoList = ({ tasks, removeTask, addTask, title,changeCheked,setTodolists,
         removeTodoList(props.id)
     }
 
-    let taskForRender = tasks;
-
     
 
 
-    const tasksJSXelements = taskForRender.map(task => {
+    const tasksJSXelements = tasks.map(task => {
         const onRemoveHandler = () => removeTask(task.id, props.id)
         const onChangeCheckHandler =(e:ChangeEvent<HTMLInputElement>) => {
             changeCheked(e.currentTarget.checked, task.id, props.id)
         }
-        
-
         return (
             <TaskMap taskId={task.id} taskTitle={task.title} taskIsDone={task.isDone} onRemoveHandler={onRemoveHandler} onChangeCheckHandler={onChangeCheckHandler}/>
         )
