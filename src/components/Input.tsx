@@ -1,33 +1,34 @@
 import React, { ChangeEvent, KeyboardEvent, SetStateAction } from 'react';
 
-type PropsType ={
+type InputPropsType ={
     id: string
     newTaskTitle: string
+    error:string
     callBack: (title:string,  todoListID: string)=> void
     setNewTaskTitle:(title:string)=> void
     addTaskHandler: ()=> void
     setError:React.Dispatch<SetStateAction<string>>
-    error:string
+    
 }
 
-export const Input = ({error,setError, ...props}:PropsType)=>{
+export const Input = ({id, newTaskTitle, error,setError,callBack,setNewTaskTitle, addTaskHandler, ...props}:InputPropsType)=>{
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setNewTaskTitle(e.currentTarget.value)
+        setNewTaskTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
         if (e.key === 'Enter') {
-            props.callBack(props.newTaskTitle, props.id)
-            props.addTaskHandler()
+            callBack(newTaskTitle, id)
+            addTaskHandler()
         }
 
     }
 
     return (
         <input onChange={onNewTitleChangeHandler} 
-        value={props.newTaskTitle}
+        value={newTaskTitle}
         onKeyPress={onKeyPressHandler} className={ error ? 'error' : ''}/>
     )
 }

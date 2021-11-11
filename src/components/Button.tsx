@@ -11,12 +11,12 @@ type ButtonPropsType = {
 
 export const Button =({onClick,name,filter, ...props}:ButtonPropsType) =>{
     
-    const onBtnClick = () =>{
-        onClick()
-    } 
+    const onBtnClickHandler = () => onClick() 
     
+    const filteredClassName = filter === 'all' || filter === 'active' || filter === 'completed' ? 'active-filter' : ''
+
     return (
-        <button onClick={onBtnClick} className={filter === 'all' || filter === 'active' || filter === 'completed' ? 'active-filter' : ''}>{name}</button>
+        <button onClick={onBtnClickHandler} className={filteredClassName}>{name}</button>
     )
 }
 //
