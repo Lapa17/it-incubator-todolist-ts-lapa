@@ -125,14 +125,13 @@ function App() {
 
         return <TodoList
             key={tl.id}
-            id={tl.id}
+            todoListID={tl.id}
             title={tl.title}
             tasks={taskForRender}
             filter={tl.filter}
             removeTask={removeTask}
             addTask={addTask}
             changeCheked={changeCheked}
-            todoLists={todoLists}
             setTodolists={setTodolists}
             changeFilter={changeFilter}
             removeTodoList={removeTodoList}
