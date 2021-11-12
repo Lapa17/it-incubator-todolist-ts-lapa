@@ -1,6 +1,7 @@
 import React from "react";
 import { ChangeEvent } from "react";
 import { CheckType, TaskType } from "../App";
+import { Button } from "./Button";
 
 
 
@@ -13,7 +14,7 @@ type TaskMapType = {
 
 const TasksMap = (props:TaskMapType) => {
 
-    return <div>{
+    return <ul>{
         props.tasks.map(t => {
         const onClickHandler = () => props.removeTask(t.id, props.todoListID)
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,11 +26,11 @@ const TasksMap = (props:TaskMapType) => {
                    onChange={onChangeHandler}
                    checked={t.isDone}/>
             <span>{t.title}</span>
-            <button onClick={onClickHandler}>x</button>
+            <Button onClick={onClickHandler} name={'x'}/>
         </li>
     })}
 
-</div>
+</ul>
 }
 
 export default TasksMap;

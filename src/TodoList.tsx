@@ -25,7 +25,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     const onRemoveTodoListHandler = () => {
         removeTodoList(props.todoListID)
     }
-    
+
     const [newTaskTitle, setNewTaskTitle] = useState('')
 
     const addTaskHandler = () => {
@@ -40,7 +40,18 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
 
     const onAllClickHandler = () => changeFilter('all', props.todoListID)
     const onActiveClickHandler = () => changeFilter('active', props.todoListID)
-    const onCompletedClickHandler= () => changeFilter('completed', props.todoListID)
+    const onCompletedClickHandler = () => changeFilter('completed', props.todoListID)
+
+    let taskForRender = tasks
+
+    if (filter === 'active') {
+        taskForRender = tasks.filter(t => t.isDone === false)
+
+    }
+    if (filter === 'completed') {
+        taskForRender = tasks.filter(t => t.isDone === true)
+
+    }
 
     return (
         <div className="todolist">
@@ -53,9 +64,8 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
                 <Button onClick={addTaskHandler} name={'+'} />
                 <div className={error ? 'error-message' : ''}>{error}</div>
             </div>
-            <ul>
-                <TasksMap tasks={tasks} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked}/>
-            </ul>
+            <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} />
+
             <div>
                 <Button filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
                 <Button filter={filter === 'active' ? 'active' : ''} onClick={onActiveClickHandler} name='Active' />

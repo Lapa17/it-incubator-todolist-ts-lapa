@@ -111,23 +111,14 @@ function App() {
     //UI:
     const todoListComponents = todoLists.map(tl => {
 
-        let taskForRender = tasks[tl.id]
-
-        if (tl.filter === 'active') {
-            taskForRender = tasks[tl.id].filter(t => t.isDone === false)
-
-        }
-        if (tl.filter === 'completed') {
-            taskForRender = tasks[tl.id].filter(t => t.isDone === true)
-
-        }
+       
 
 
         return <TodoList
             key={tl.id}
             todoListID={tl.id}
             title={tl.title}
-            tasks={taskForRender}
+            tasks={tasks[tl.id]}
             filter={tl.filter}
             removeTask={removeTask}
             addTask={addTask}
