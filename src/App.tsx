@@ -78,6 +78,11 @@ function App() {
         setTasks({ ...tasks, [todoListID]: tasks[todoListID].map(t => t.id === taskId ? { ...t, isDone: check } : t) })
     }
 
+    const onNewTaskTitleChange = (newTitle: string, taskId: string, todoListID: string) => {
+        debugger
+        setTasks({ ...tasks, [todoListID]: tasks[todoListID].map(t => t.id === taskId ? { ...t, title: newTitle } : t) })
+    }
+
 
     const addTask = (title: string, todoListID: string) => {
         let newTask: TaskType = {
@@ -94,9 +99,18 @@ function App() {
 
     }
 
+
     const removeTodoList = (todoListID: string) => {
         setTodolists(todoLists.filter(t => t.id !== todoListID))
         delete tasks[todoListID]
+    }
+    const onTodolistTitleChange = (newTitle:string, todoListID: string)  => {
+        // let todolist = todoLists.find(tl => tl.id === todoListID)
+        //     if(todolist) {
+        //         todolist.title = newTitle
+        //         setTodolists([...todoLists])
+        //     }
+        setTodolists(todoLists.map(tl=> tl.id === todoListID ? {...tl, title: newTitle} : tl ))
     }
     const changeFilter = (value: FilterValuesType, todoListID: string) => {
         // let todolist = todoLists.find(tl => tl.id === todoListID)
@@ -123,9 +137,12 @@ function App() {
             removeTask={removeTask}
             addTask={addTask}
             changeCheked={changeCheked}
+            onNewTaskTitleChange={onNewTaskTitleChange}
             setTodolists={setTodolists}
             changeFilter={changeFilter}
             removeTodoList={removeTodoList}
+            onTodolistTitleChange={onTodolistTitleChange}
+            
 
         />
     })

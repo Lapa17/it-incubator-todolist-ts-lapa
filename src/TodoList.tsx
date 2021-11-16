@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { CheckType, FilterValuesType, TaskArrayType, TaskType, TodoListType } from "./App";
 import { Button } from './components/Button';
 import { Input } from './components/Input';
+import SuperSpan from './components/SuperSpan';
 import TasksMap from './components/TasksMap';
 
 type TodoListPropsType = {
@@ -15,6 +16,8 @@ type TodoListPropsType = {
     setTodolists: React.Dispatch<React.SetStateAction<TodoListType[]>>
     changeFilter: (value: FilterValuesType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
+    onNewTaskTitleChange: (newTitle:string, id:string, todoListID: string, ) => void
+    onTodolistTitleChange: (newTitle:string, todoListID: string) => void
 
 }
 
@@ -41,6 +44,9 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     const onAllClickHandler = () => changeFilter('all', props.todoListID)
     const onActiveClickHandler = () => changeFilter('active', props.todoListID)
     const onCompletedClickHandler = () => changeFilter('completed', props.todoListID)
+    const onTaskTitleChange = (newTitle:string, id:string) => props.onNewTaskTitleChange(newTitle,id, props.todoListID)
+    const onTodolistTitleChangeHandler = (newTitle:string) => props.onTodolistTitleChange(newTitle,props.todoListID)
+    
 
     let taskForRender = tasks
 
@@ -55,7 +61,8 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
 
     return (
         <div className="todolist">
-            <h3>{title}
+            <h3>
+                <SuperSpan title={title} onTitleChange={onTodolistTitleChangeHandler}/>
                 <Button onClick={onRemoveTodoListHandler} name={'x'} />
             </h3>
             <div>
@@ -64,7 +71,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
                 <Button onClick={addTaskHandler} name={'+'} />
                 <div className={error ? 'error-message' : ''}>{error}</div>
             </div>
-            <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} />
+            <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange}/>
 
             <div>
                 <Button filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
