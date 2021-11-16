@@ -5,26 +5,25 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 
 type InputPropsType = DefaultInputPropsType & {
-    id: string
-    newTaskTitle?: string 
+    newTitle?: string 
     error?:string
-    callBack: (title:string,  todoListID: string)=> void
-    setNewTaskTitle:(title:string)=> void
+    callBack: (title:string)=> void
+    setNewTitle:(title:string)=> void
     addTaskHandler: ()=> void
     setError:React.Dispatch<SetStateAction<string>>
     
 }
 
-export const Input = ({id, newTaskTitle, error,setError,callBack,setNewTaskTitle, addTaskHandler, ...props}:InputPropsType)=>{
+export const Input = ({newTitle, error,setError,callBack,setNewTitle, addTaskHandler, ...props}:InputPropsType)=>{
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskTitle(e.currentTarget.value)
+        setNewTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
-        if (e.key === 'Enter' && newTaskTitle) {
-            callBack(newTaskTitle, id)
+        if (e.key === 'Enter' && newTitle) {
+            callBack(newTitle)
             addTaskHandler()
         }
 
@@ -32,7 +31,7 @@ export const Input = ({id, newTaskTitle, error,setError,callBack,setNewTaskTitle
 
     return (
         <input onChange={onNewTitleChangeHandler} type={props.type}
-        value={newTaskTitle}
+        value={newTitle}
         onKeyPress={onKeyPressHandler} className={ error ? 'error' : ''}/>
     )
 }

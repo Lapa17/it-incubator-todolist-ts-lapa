@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { v1 } from 'uuid';
 import './App.css';
+import { Button } from './components/Button';
+import FullInput from './components/FullInput';
+import { Input } from './components/Input';
 import TodoList from "./TodoList";
 
 
@@ -99,6 +102,23 @@ function App() {
 
     }
 
+    const addTdodolist = (title: string) => {
+        let newTodolist: TodoListType = {
+            id: v1(),
+            title: title,
+            filter: 'all'
+        }
+        // const copyState = {...tasks}
+        // copyState[todoListID] = [newTask, ...tasks[todoListID]]
+        // setTasks(copyState)
+        // 2 варианта
+        setTodolists([newTodolist, ...todoLists])
+        setTasks({...tasks, [newTodolist.id]:[]})
+      
+
+
+    }
+
 
     const removeTodoList = (todoListID: string) => {
         setTodolists(todoLists.filter(t => t.id !== todoListID))
@@ -140,7 +160,7 @@ function App() {
             onNewTaskTitleChange={onNewTaskTitleChange}
             setTodolists={setTodolists}
             changeFilter={changeFilter}
-            removeTodoList={removeTodoList}
+            removeTodoList={ removeTodoList}
             onTodolistTitleChange={onTodolistTitleChange}
             
 
@@ -150,6 +170,7 @@ function App() {
 
     return (
         <div className="App">
+            <FullInput addItem={addTdodolist}/>
             {todoListComponents}
         </div>
     );

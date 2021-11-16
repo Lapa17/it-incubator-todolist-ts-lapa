@@ -10,6 +10,8 @@ type ButtonPropsType = {
 
 
 export const Button =({onClick,name,filter, ...props}:ButtonPropsType) =>{
+
+    
     
     const onBtnClickHandler = () => onClick() 
     

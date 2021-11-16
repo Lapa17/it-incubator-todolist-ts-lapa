@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { CheckType, FilterValuesType, TaskArrayType, TaskType, TodoListType } from "./App";
 import { Button } from './components/Button';
+import FullInput from './components/FullInput';
 import { Input } from './components/Input';
 import SuperSpan from './components/SuperSpan';
 import TasksMap from './components/TasksMap';
@@ -23,22 +24,8 @@ type TodoListPropsType = {
 
 const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolists, filter, changeFilter, removeTodoList, ...props }: TodoListPropsType) => {
 
-    const [error, setError] = useState('')
-
     const onRemoveTodoListHandler = () => {
         removeTodoList(props.todoListID)
-    }
-
-    const [newTaskTitle, setNewTaskTitle] = useState('')
-
-    const addTaskHandler = () => {
-        if (newTaskTitle.trim()) {
-            addTask(newTaskTitle, props.todoListID)
-            setNewTaskTitle('')
-        }
-        else {
-            setError('Title is empty')
-        }
     }
 
     const onAllClickHandler = () => changeFilter('all', props.todoListID)
@@ -46,6 +33,9 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     const onCompletedClickHandler = () => changeFilter('completed', props.todoListID)
     const onTaskTitleChange = (newTitle:string, id:string) => props.onNewTaskTitleChange(newTitle,id, props.todoListID)
     const onTodolistTitleChangeHandler = (newTitle:string) => props.onTodolistTitleChange(newTitle,props.todoListID)
+    const AddTaskHandler = (title:string) => {
+        addTask(title, props.todoListID)
+    }
     
 
     let taskForRender = tasks
@@ -67,9 +57,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
             </h3>
             <div>
                 {/* <FullInput callBack={addTask}/> */}
-                <Input newTaskTitle={newTaskTitle} callBack={addTask} setNewTaskTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} id={props.todoListID} />
-                <Button onClick={addTaskHandler} name={'+'} />
-                <div className={error ? 'error-message' : ''}>{error}</div>
+                <FullInput addItem={AddTaskHandler}/>
             </div>
             <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange}/>
 
