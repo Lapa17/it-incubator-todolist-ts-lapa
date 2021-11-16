@@ -22,13 +22,13 @@ const FullInput = (props: FullInputPropsType) => {
         }
     }
 
-    return ( <div>
+    return (<div>
 
-    <Input newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} />
-    <Button onClick={addTaskHandler} name={'+'} />
-     <div className={error ? 'error-message' : ''}>{error}</div>
-     </div>
-     )
+        <Input newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} />
+        <Button onClick={addTaskHandler} name={'+'} />
+        <div className={error ? 'error-message' : ''}>{error}</div>
+    </div>
+    )
 }
 
 export default FullInput;

@@ -1,20 +1,19 @@
-import { type } from 'os';
 import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, SetStateAction } from 'react';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 
 type InputPropsType = DefaultInputPropsType & {
-    newTitle?: string 
-    error?:string
-    callBack: (title:string)=> void
-    setNewTitle:(title:string)=> void
-    addTaskHandler: ()=> void
-    setError:React.Dispatch<SetStateAction<string>>
-    
+    newTitle: string
+    error?: string
+    callBack: (title: string) => void
+    setNewTitle: (title: string) => void
+    addTaskHandler: () => void
+    setError: React.Dispatch<SetStateAction<string>>
+
 }
 
-export const Input = ({newTitle, error,setError,callBack,setNewTitle, addTaskHandler, ...props}:InputPropsType)=>{
+export const Input = ({ newTitle, error, setError, callBack, setNewTitle, addTaskHandler, ...props }: InputPropsType) => {
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +30,7 @@ export const Input = ({newTitle, error,setError,callBack,setNewTitle, addTaskHan
 
     return (
         <input onChange={onNewTitleChangeHandler} type={props.type}
-        value={newTitle}
-        onKeyPress={onKeyPressHandler} className={ error ? 'error' : ''}/>
+            value={newTitle}
+            onKeyPress={onKeyPressHandler} className={error ? 'error' : ''} />
     )
 }

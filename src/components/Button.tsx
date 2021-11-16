@@ -2,19 +2,19 @@ import React from 'react'
 import { FilterValuesType } from '../App'
 
 type ButtonPropsType = {
-    onClick: ()=> void
+    onClick: () => void
     name: string
-    filter?:string
+    filter?: string
 
 }
 
 
-export const Button =({onClick,name,filter, ...props}:ButtonPropsType) =>{
+export const Button = ({ onClick, name, filter, ...props }: ButtonPropsType) => {
 
-    
-    
-    const onBtnClickHandler = () => onClick() 
-    
+
+
+    const onBtnClickHandler = () => onClick()
+
     const filteredClassName = filter === 'all' || filter === 'active' || filter === 'completed' ? 'active-filter' : ''
 
     return (

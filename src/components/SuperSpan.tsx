@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react"
 
-export type SuperspanPropsType ={
+export type SuperspanPropsType = {
     title: string
-    onTitleChange: (newTitle:string)=> void
+    onTitleChange: (newTitle: string) => void
 }
 
 
@@ -11,22 +11,22 @@ const SuperSpan = (props: SuperspanPropsType) => {
     let [edit, setEdit] = useState(false)
     let [title, setTitle] = useState('')
 
-    const onEditActivateHandler =()=>{
+    const onEditActivateHandler = () => {
         setEdit(true)
         setTitle(props.title)
     }
-    const onNoViewHandler =()=>{
+    const onNoViewHandler = () => {
         setEdit(false)
         props.onTitleChange(title)
     }
-    
-    let onEditModWrite =(e:ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
-    return  edit 
-            ? <input value={title} onBlur={onNoViewHandler} onChange={onEditModWrite} autoFocus/> 
-            : <span onDoubleClick={onEditActivateHandler}>{props.title}</span>
-        
-      
+    let onEditModWrite = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+
+    return edit
+        ? <input value={title} onBlur={onNoViewHandler} onChange={onEditModWrite} autoFocus />
+        : <span onDoubleClick={onEditActivateHandler}>{props.title}</span>
+
+
 }
 
 export default SuperSpan;

@@ -17,8 +17,8 @@ type TodoListPropsType = {
     setTodolists: React.Dispatch<React.SetStateAction<TodoListType[]>>
     changeFilter: (value: FilterValuesType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
-    onNewTaskTitleChange: (newTitle:string, id:string, todoListID: string, ) => void
-    onTodolistTitleChange: (newTitle:string, todoListID: string) => void
+    onNewTaskTitleChange: (newTitle: string, id: string, todoListID: string,) => void
+    onTodolistTitleChange: (newTitle: string, todoListID: string) => void
 
 }
 
@@ -31,12 +31,12 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     const onAllClickHandler = () => changeFilter('all', props.todoListID)
     const onActiveClickHandler = () => changeFilter('active', props.todoListID)
     const onCompletedClickHandler = () => changeFilter('completed', props.todoListID)
-    const onTaskTitleChange = (newTitle:string, id:string) => props.onNewTaskTitleChange(newTitle,id, props.todoListID)
-    const onTodolistTitleChangeHandler = (newTitle:string) => props.onTodolistTitleChange(newTitle,props.todoListID)
-    const AddTaskHandler = (title:string) => {
+    const onTaskTitleChange = (newTitle: string, id: string) => props.onNewTaskTitleChange(newTitle, id, props.todoListID)
+    const onTodolistTitleChangeHandler = (newTitle: string) => props.onTodolistTitleChange(newTitle, props.todoListID)
+    const AddTaskHandler = (title: string) => {
         addTask(title, props.todoListID)
     }
-    
+
 
     let taskForRender = tasks
 
@@ -52,14 +52,14 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     return (
         <div className="todolist">
             <h3>
-                <SuperSpan title={title} onTitleChange={onTodolistTitleChangeHandler}/>
+                <SuperSpan title={title} onTitleChange={onTodolistTitleChangeHandler} />
                 <Button onClick={onRemoveTodoListHandler} name={'x'} />
             </h3>
             <div>
                 {/* <FullInput callBack={addTask}/> */}
-                <FullInput addItem={AddTaskHandler}/>
+                <FullInput addItem={AddTaskHandler} />
             </div>
-            <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange}/>
+            <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange} />
 
             <div>
                 <Button filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
