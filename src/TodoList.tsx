@@ -5,6 +5,9 @@ import FullInput from './components/FullInput';
 import { SuperInput } from './components/SuperInput';
 import SuperSpan from './components/SuperSpan';
 import TasksMap from './components/TasksMap';
+import { ButtonGroup } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import Typography from '@material-ui/core/Typography'
 
 type TodoListPropsType = {
     todoListID: string
@@ -51,20 +54,24 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
 
     return (
         <div className="todolist">
-            <h3>
+            <Typography variant="h5">
                 <SuperSpan title={title} onTitleChange={onTodolistTitleChangeHandler} />
-                <SuperButton onClick={onRemoveTodoListHandler} name={'x'} />
-            </h3>
+                <SuperButton onClick={onRemoveTodoListHandler} color="primary" name={
+                        <HighlightOffIcon/>
+                } />
+            </Typography>
             <div>
                 {/* <FullInput callBack={addTask}/> */}
-                <FullInput addItem={AddTaskHandler} />
+                <FullInput addItem={AddTaskHandler} label="Enter task.."/>
             </div>
             <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange} />
 
             <div>
-                <SuperButton filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
-                <SuperButton filter={filter === 'active' ? 'active' : ''} onClick={onActiveClickHandler} name='Active' />
-                <SuperButton filter={filter === 'completed' ? 'completed' : ''} onClick={onCompletedClickHandler} name='Completed' />
+                <ButtonGroup variant="contained" >
+                <SuperButton color={filter === 'all' ? "secondary" : "primary"} onClick={onAllClickHandler} name='All' />
+                <SuperButton color={filter === 'active' ? "secondary" : "primary"} onClick={onActiveClickHandler} name='Active' />
+                <SuperButton color={filter === 'completed' ? "secondary" : "primary"} onClick={onCompletedClickHandler} name='Completed' />
+                </ButtonGroup>
             </div>
         </div>
     )

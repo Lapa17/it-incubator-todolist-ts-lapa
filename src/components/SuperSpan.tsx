@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react"
+import TextField from '@material-ui/core/TextField'
 
 export type SuperspanPropsType = {
     title: string
@@ -23,7 +24,7 @@ const SuperSpan = (props: SuperspanPropsType) => {
     let onEditModWrite = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
     return edit
-        ? <input value={title} onBlur={onNoViewHandler} onChange={onEditModWrite} autoFocus />
+        ?  <TextField value={title} onBlur={onNoViewHandler} onChange={onEditModWrite} autoFocus />
         : <span onDoubleClick={onEditActivateHandler}>{props.title}</span>
 
 

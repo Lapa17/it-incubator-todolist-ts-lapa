@@ -2,13 +2,15 @@ import React from "react"
 import { useState } from "react"
 import { SuperButton } from "./SuperButton"
 import { SuperInput } from "./SuperInput"
+import AddIcon from '@material-ui/icons/Add';
 
 type FullInputPropsType = {
     addItem: (title: string) => void
+    label:string
 }
 
 const FullInput = (props: FullInputPropsType) => {
-    const [error, setError] = useState('')
+    const [error, setError] = useState(false)
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
 
@@ -18,14 +20,14 @@ const FullInput = (props: FullInputPropsType) => {
             setNewTaskTitle('')
         }
         else {
-            setError('Title is empty')
+            setError(true)
         }
     }
 
     return (<div>
 
-        <SuperInput newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} />
-        <SuperButton onClick={addTaskHandler} name={'+'} />
+        <SuperInput newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} label={props.label} variant={"outlined"}/>
+        <SuperButton onClick={addTaskHandler} color={"primary"} name={<AddIcon/>} />
         <div className={error ? 'error-message' : ''}>{error}</div>
     </div>
     )

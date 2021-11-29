@@ -5,6 +5,9 @@ import { SuperButton } from './components/SuperButton';
 import FullInput from './components/FullInput';
 import { SuperInput } from './components/SuperInput';
 import TodoList from "./TodoList";
+import { AppBar, Button, CardContent, Container, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
+import Card from '@material-ui/core/Card'
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 export type TodoListType = {
@@ -144,32 +147,57 @@ function App() {
 
 
 
-        return <TodoList
-            key={tl.id}
-            todoListID={tl.id}
-            title={tl.title}
-            tasks={tasks[tl.id]}
-            filter={tl.filter}
-            removeTask={removeTask}
-            addTask={addTask}
-            changeCheked={changeCheked}
-            onNewTaskTitleChange={onNewTaskTitleChange}
-            setTodolists={setTodolists}
-            changeFilter={changeFilter}
-            removeTodoList={removeTodoList}
-            onTodolistTitleChange={onTodolistTitleChange}
+        return <Grid item >
+            <Card>
+                <CardContent>
+                    <TodoList
+                        key={tl.id}
+                        todoListID={tl.id}
+                        title={tl.title}
+                        tasks={tasks[tl.id]}
+                        filter={tl.filter}
+                        removeTask={removeTask}
+                        addTask={addTask}
+                        changeCheked={changeCheked}
+                        onNewTaskTitleChange={onNewTaskTitleChange}
+                        setTodolists={setTodolists}
+                        changeFilter={changeFilter}
+                        removeTodoList={removeTodoList}
+                        onTodolistTitleChange={onTodolistTitleChange}
 
 
-        />
+                    />
+                </CardContent>
+            </Card>
+        </Grid>
     })
 
 
-    return (
-        <div className="App">
-            <FullInput addItem={addTdodolist} />
-            {todoListComponents}
-        </div>
-    );
+    return (<div>
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton edge="start"  color="inherit" aria-label="menu">
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6">
+                    News
+                </Typography>
+                <Button color="inherit">Login</Button>
+            </Toolbar>
+        </AppBar>
+        <Container maxWidth="xl">
+            <Grid container className="App" spacing={5} style={{marginTop:"10px"}}>
+                <Grid item >
+                    <Card>
+                        <CardContent>
+                            <FullInput addItem={addTdodolist} label="Enter to-do-list" />
+                        </CardContent>
+                    </Card>
+                </Grid>
+                {todoListComponents}
+            </Grid>
+        </Container>
+    </div>);
 }
 
 export default App;

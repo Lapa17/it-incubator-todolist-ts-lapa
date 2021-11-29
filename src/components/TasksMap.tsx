@@ -3,6 +3,8 @@ import { ChangeEvent } from "react";
 import { CheckType, TaskType } from "../App";
 import { SuperButton } from "./SuperButton";
 import SuperSpan from "./SuperSpan";
+import BackspaceIcon from '@material-ui/icons/Backspace';
+import { Checkbox, List, ListItem } from "@material-ui/core";
 
 
 
@@ -23,18 +25,16 @@ const TasksMap = (props: TaskMapType) => {
                 props.changeTaskStatus(e.currentTarget.checked, t.id, props.todoListID);
             }
             const onNewTaskTitleAdd = (newTitle: string) => {
-                debugger
                 props.onNewTaskTitleChange(newTitle, t.id)
             }
 
 
-            return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                <input type="checkbox"
-                    onChange={onChangeHandler}
+            return <List key={t.id} className={t.isDone ? "is-done" : ""}>
+                <Checkbox onChange={onChangeHandler}
                     checked={t.isDone} />
                 <SuperSpan title={t.title} onTitleChange={onNewTaskTitleAdd} />
-                <SuperButton onClick={onClickHandler} name={'x'} />
-            </li>
+                <SuperButton color="primary" onClick={onClickHandler} name={<BackspaceIcon />} />
+            </List>
         })}
 
     </ul>
