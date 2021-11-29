@@ -9,7 +9,7 @@ type ButtonPropsType = {
 }
 
 
-export const Button = ({ onClick, name, filter, ...props }: ButtonPropsType) => {
+export const SuperButton = ({ onClick, name, filter, ...props }: ButtonPropsType) => {
 
 
 

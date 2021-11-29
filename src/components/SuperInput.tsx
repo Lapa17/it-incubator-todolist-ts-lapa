@@ -13,7 +13,7 @@ type InputPropsType = DefaultInputPropsType & {
 
 }
 
-export const Input = ({ newTitle, error, setError, callBack, setNewTitle, addTaskHandler, ...props }: InputPropsType) => {
+export const SuperInput = ({ newTitle, error, setError, callBack, setNewTitle, addTaskHandler, ...props }: InputPropsType) => {
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

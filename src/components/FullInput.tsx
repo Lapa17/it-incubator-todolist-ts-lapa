@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
-import { Button } from "./Button"
-import { Input } from "./Input"
+import { SuperButton } from "./SuperButton"
+import { SuperInput } from "./SuperInput"
 
 type FullInputPropsType = {
     addItem: (title: string) => void
@@ -24,8 +24,8 @@ const FullInput = (props: FullInputPropsType) => {
 
     return (<div>
 
-        <Input newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} />
-        <Button onClick={addTaskHandler} name={'+'} />
+        <SuperInput newTitle={newTaskTitle} callBack={props.addItem} setNewTitle={setNewTaskTitle} addTaskHandler={addTaskHandler} error={error} setError={setError} />
+        <SuperButton onClick={addTaskHandler} name={'+'} />
         <div className={error ? 'error-message' : ''}>{error}</div>
     </div>
     )

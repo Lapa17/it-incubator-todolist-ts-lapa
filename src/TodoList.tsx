@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { CheckType, FilterValuesType, TaskArrayType, TaskType, TodoListType } from "./App";
-import { Button } from './components/Button';
+import { SuperButton } from './components/SuperButton';
 import FullInput from './components/FullInput';
-import { Input } from './components/Input';
+import { SuperInput } from './components/SuperInput';
 import SuperSpan from './components/SuperSpan';
 import TasksMap from './components/TasksMap';
 
@@ -53,7 +53,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
         <div className="todolist">
             <h3>
                 <SuperSpan title={title} onTitleChange={onTodolistTitleChangeHandler} />
-                <Button onClick={onRemoveTodoListHandler} name={'x'} />
+                <SuperButton onClick={onRemoveTodoListHandler} name={'x'} />
             </h3>
             <div>
                 {/* <FullInput callBack={addTask}/> */}
@@ -62,9 +62,9 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
             <TasksMap tasks={taskForRender} todoListID={props.todoListID} removeTask={removeTask} changeTaskStatus={changeCheked} onNewTaskTitleChange={onTaskTitleChange} />
 
             <div>
-                <Button filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
-                <Button filter={filter === 'active' ? 'active' : ''} onClick={onActiveClickHandler} name='Active' />
-                <Button filter={filter === 'completed' ? 'completed' : ''} onClick={onCompletedClickHandler} name='Completed' />
+                <SuperButton filter={filter === 'all' ? 'all' : ''} onClick={onAllClickHandler} name='All' />
+                <SuperButton filter={filter === 'active' ? 'active' : ''} onClick={onActiveClickHandler} name='Active' />
+                <SuperButton filter={filter === 'completed' ? 'completed' : ''} onClick={onCompletedClickHandler} name='Completed' />
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ChangeEvent } from "react";
 import { CheckType, TaskType } from "../App";
-import { Button } from "./Button";
+import { SuperButton } from "./SuperButton";
 import SuperSpan from "./SuperSpan";
 
 
@@ -33,7 +33,7 @@ const TasksMap = (props: TaskMapType) => {
                     onChange={onChangeHandler}
                     checked={t.isDone} />
                 <SuperSpan title={t.title} onTitleChange={onNewTaskTitleAdd} />
-                <Button onClick={onClickHandler} name={'x'} />
+                <SuperButton onClick={onClickHandler} name={'x'} />
             </li>
         })}
 
