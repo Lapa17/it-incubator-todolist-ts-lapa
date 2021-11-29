@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v1 } from 'uuid';
 import './App.css';
-import { Button } from './components/Button';
+import { SuperButton } from './components/SuperButton';
 import FullInput from './components/FullInput';
-import { Input } from './components/Input';
+import { SuperInput } from './components/SuperInput';
 import TodoList from "./TodoList";
 
 
