@@ -17,7 +17,6 @@ type TodoListPropsType = {
     removeTask: (taskID: string, todoListID: string) => void
     addTask: (title: string, todoListID: string) => void
     changeCheked: (check: CheckType, taskId: string, todoListID: string) => void
-    setTodolists: React.Dispatch<React.SetStateAction<TodoListType[]>>
     changeFilter: (value: FilterValuesType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
     onNewTaskTitleChange: (newTitle: string, id: string, todoListID: string,) => void
@@ -25,7 +24,7 @@ type TodoListPropsType = {
 
 }
 
-const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolists, filter, changeFilter, removeTodoList, ...props }: TodoListPropsType) => {
+const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, filter, changeFilter, removeTodoList, ...props }: TodoListPropsType) => {
 
     const onRemoveTodoListHandler = () => {
         removeTodoList(props.todoListID)
@@ -39,7 +38,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, setTodolist
     const AddTaskHandler = (title: string) => {
         addTask(title, props.todoListID)
     }
-
+    debugger
 
     let taskForRender = tasks
 

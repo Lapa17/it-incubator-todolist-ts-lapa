@@ -17,7 +17,7 @@ type TaskMapType = {
 }
 
 const TasksMap = (props: TaskMapType) => {
-
+    debugger
     return <ul>{
         props.tasks.map(t => {
             const onClickHandler = () => props.removeTask(t.id, props.todoListID)
