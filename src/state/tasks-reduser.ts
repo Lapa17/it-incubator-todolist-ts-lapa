@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import { CheckType, TaskArrayType, TaskType, TodoListType} from "../App";
-import { AddStateActionType, ADD_NEW_TODOLIST } from "./todolists-reduser";
+import { AddStateActionType, ADD_NEW_TODOLIST, RemoveStateActionType, REMOVE_TODOLIST } from "./todolists-reduser";
 
 const REMOVE_TASK = "REMOVE_TASK"
 const ADD_TASK = "ADD_TASK"
@@ -10,7 +10,7 @@ const NEW_TASK_TITLE = "NEW_TASK_TITLE"
 
 
 type TaskActionType = RemoveTaskActionType | 
-AddTaskActionType | ChangeCheckedActionType | NewTaskTitleActionType | AddStateActionType
+AddTaskActionType | ChangeCheckedActionType | NewTaskTitleActionType | AddStateActionType | RemoveStateActionType
 
 type RemoveTaskActionType = ReturnType<typeof removeTaskAC> 
 
@@ -27,7 +27,10 @@ export const addTaskAC =(title: string, todolistID: string) =>({type: ADD_TASK, 
 export const changeChekedAC = (check: CheckType, taskId: string, todolistID: string) =>({type: CHANGE_CHACKED, check, taskId, todolistID}) as const
 export const NewTaskTitleChangeAC = (newTitle: string, taskId: string, todolistID: string) =>({type: NEW_TASK_TITLE, newTitle, taskId, todolistID}) as const
 
-export const tasksReduser = (state: TaskArrayType, action: TaskActionType): TaskArrayType => {
+
+const initialState:TaskArrayType = {}
+
+export const tasksReducer = (state = initialState, action: TaskActionType): TaskArrayType => {
     switch (action.type) {
         case REMOVE_TASK: {
             return {...state, [action.todolistID]: state[action.todolistID].filter(t => t.id !== action.id)}
@@ -43,6 +46,11 @@ export const tasksReduser = (state: TaskArrayType, action: TaskActionType): Task
         }
         case ADD_NEW_TODOLIST:{
             return { ...state, [action.todolistId]: [] }
+        }
+        case REMOVE_TODOLIST:{
+            const stateCopy = {...state};
+            delete stateCopy[action.id]
+            return stateCopy;
         }
         default:
             return state

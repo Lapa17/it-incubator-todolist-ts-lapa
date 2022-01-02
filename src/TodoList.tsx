@@ -38,7 +38,6 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, filter, cha
     const AddTaskHandler = (title: string) => {
         addTask(title, props.todoListID)
     }
-    debugger
 
     let taskForRender = tasks
 

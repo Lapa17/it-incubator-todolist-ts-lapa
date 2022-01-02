@@ -32,9 +32,6 @@ export const SuperInput = ({ newTitle, error, setError, callBack, setNewTitle, a
     }
 
     return (
-        // <input onChange={onNewTitleChangeHandler} type={props.type}
-        //     value={newTitle}
-        //     onKeyPress={onKeyPressHandler} className={error ? 'error' : ''} />
             <TextField onChange={onNewTitleChangeHandler} 
             onKeyPress={onKeyPressHandler} 
             value={newTitle} 
