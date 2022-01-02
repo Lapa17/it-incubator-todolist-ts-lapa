@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, SetStateAction } from 'react';
+import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, SetStateAction, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -6,7 +6,7 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 type InputPropsType = DefaultInputPropsType & {
     newTitle: string
-    error?: boolean
+    error: boolean
     label?:string
     variant: "outlined" | "standard" | "filled" | undefined 
     callBack: (title: string) => void
@@ -16,14 +16,14 @@ type InputPropsType = DefaultInputPropsType & {
 
 }
 
-export const SuperInput = ({ newTitle, error, setError, callBack, setNewTitle, addTaskHandler, ...props }: InputPropsType) => {
+export const SuperInput = React.memo(({ newTitle, error, setError, callBack, setNewTitle, addTaskHandler, ...props }: InputPropsType) => {
 
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(false)
+            setError(false)
         if (e.key === 'Enter' && newTitle) {
             callBack(newTitle)
             addTaskHandler()
@@ -40,4 +40,4 @@ export const SuperInput = ({ newTitle, error, setError, callBack, setNewTitle, a
             helperText={error ? "Title is empty" : ""}     />
             
     )
-}
+})

@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
+import React, { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react';
 import { CheckType, FilterValuesType, TaskArrayType, TaskType, TodoListType } from "./App";
 import { SuperButton } from './components/SuperButton';
-import FullInput from './components/FullInput';
+import {FullInput} from './components/FullInput';
 import { SuperInput } from './components/SuperInput';
 import SuperSpan from './components/SuperSpan';
 import TasksMap from './components/TasksMap';
@@ -24,7 +24,9 @@ type TodoListPropsType = {
 
 }
 
-const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, filter, changeFilter, removeTodoList, ...props }: TodoListPropsType) => {
+const TodoList = React.memo(({ tasks, removeTask, addTask, title, changeCheked, filter, changeFilter, removeTodoList, ...props }: TodoListPropsType) => {
+
+    console.log('Use todolist')
 
     const onRemoveTodoListHandler = () => {
         removeTodoList(props.todoListID)
@@ -35,9 +37,9 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, filter, cha
     const onCompletedClickHandler = () => changeFilter('completed', props.todoListID)
     const onTaskTitleChange = (newTitle: string, id: string) => props.onNewTaskTitleChange(newTitle, id, props.todoListID)
     const onTodolistTitleChangeHandler = (newTitle: string) => props.onTodolistTitleChange(newTitle, props.todoListID)
-    const AddTaskHandler = (title: string) => {
+    const AddTaskHandler = useCallback((title: string) => {
         addTask(title, props.todoListID)
-    }
+    },[title, props.todoListID])
 
     let taskForRender = tasks
 
@@ -73,7 +75,7 @@ const TodoList = ({ tasks, removeTask, addTask, title, changeCheked, filter, cha
             </div>
         </div>
     )
-}
+})
 
 export default TodoList;
 

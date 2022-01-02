@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { useState } from "react"
 import { SuperButton } from "./SuperButton"
 import { SuperInput } from "./SuperInput"
@@ -9,12 +9,15 @@ type FullInputPropsType = {
     label:string
 }
 
-const FullInput = (props: FullInputPropsType) => {
-    const [error, setError] = useState(false)
+export const FullInput = React.memo((props: FullInputPropsType) => {
 
-    const [newTaskTitle, setNewTaskTitle] = useState('')
+    //console.log('Use fullinput');
+    
+    const [error, setError] = useState<boolean>(false)
 
-    const addTaskHandler = () => {
+    const [newTaskTitle, setNewTaskTitle] = useState<string>('')
+
+    const addTaskHandler = useCallback(() => {
         if (newTaskTitle.trim()) {
             props.addItem(newTaskTitle)
             setNewTaskTitle('')
@@ -22,7 +25,7 @@ const FullInput = (props: FullInputPropsType) => {
         else {
             setError(true)
         }
-    }
+    },[newTaskTitle,props.addItem, setNewTaskTitle,setError ])
 
     return (<div>
 
@@ -31,6 +34,4 @@ const FullInput = (props: FullInputPropsType) => {
         <div className={error ? 'error-message' : ''}>{error}</div>
     </div>
     )
-}
-
-export default FullInput;
+})

@@ -2,7 +2,7 @@ import React, { useState, useReducer} from 'react';
 import { v1 } from 'uuid';
 import './App.css';
 import { SuperButton } from './components/SuperButton';
-import FullInput from './components/FullInput';
+import {FullInput} from './components/FullInput';
 import { SuperInput } from './components/SuperInput';
 import TodoList from "./TodoList";
 import { AppBar, Button, CardContent, Container, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
